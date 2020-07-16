@@ -643,16 +643,16 @@ class GMMHMM(_BaseHMM):
                                      random_state=self.random_state)
         labels = main_kmeans.fit_predict(X)
         kmeanses = []
-        for label in range(nc):
-            kmeans = cluster.KMeans(n_clusters=nm,
-                                    random_state=self.random_state)
-            kmeans.fit(X[np.where(labels == label)])
-            kmeanses.append(kmeans)
 
         if 'w' in self.init_params or not hasattr(self, "weights_"):
             self.weights_ = np.ones((nc, nm)) / (np.ones((nc, 1)) * nm)
 
         if 'm' in self.init_params or not hasattr(self, "means_"):
+            for label in range(nc):
+                kmeans = cluster.KMeans(n_clusters=nm,
+                                    random_state=self.random_state)
+                kmeans.fit(X[np.where(labels == label)])
+                kmeanses.append(kmeans)
             self.means_ = np.stack(
                 [kmeans.cluster_centers_ for kmeans in kmeanses])
 
