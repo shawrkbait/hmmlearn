@@ -1009,6 +1009,9 @@ class GMMHMM(_BaseHMM):
             new_cov = new_cov_numer / new_cov_denom
 
         # Assigning new values to class members
-        self.weights_ = new_weights
-        self.means_ = new_means
-        self.covars_ = new_cov
+        if 'w' in self.params:
+          self.weights_ = new_weights
+        if 'm' in self.params:
+          self.means_ = new_means
+        if 'c' in self.params:
+          self.covars_ = new_cov
