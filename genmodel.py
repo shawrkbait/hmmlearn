@@ -20,7 +20,7 @@ def gen_model(M=5, K=4, D=2, samples=400):
   row_sums = wtmp.sum(axis=1)
   model.weights_ = np.array(wtmp / row_sums[:, np.newaxis], dtype=np.double)
   
-  model.means_ = np.array((0.6 * np.random.random_sample((M, K, D)) - 0.3), dtype=np.double)
+  model.means_ = np.array((60 * np.random.random_sample((M, K, D)) - 30), dtype=np.double)
   model.covars_ = np.ones( (M,K,D) )
   
   obs, vit = model.sample(samples)
